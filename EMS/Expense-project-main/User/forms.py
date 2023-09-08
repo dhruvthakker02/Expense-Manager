@@ -6,6 +6,7 @@ from django.contrib.auth import (
 from django.contrib.auth.forms import UserCreationForm
 
 from User.models import User
+from Expense.models import Category, Subcategory
 
 #registration Form 
 
@@ -26,3 +27,15 @@ class RegisterForm(UserCreationForm):
             'fullname': forms.TextInput(attrs={'required': True, 'class': 'form-control', 'placeholder': 'Username'}),
             'email': forms.TextInput(attrs={'required': True, 'class': 'form-control', 'placeholder': 'E-Mail'})
         }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['categoryname'] 
+
+
+class SubCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = '__all__'

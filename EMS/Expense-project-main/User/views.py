@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from User.forms import RegisterForm
-from Expense.models import Expense,Payee
+from Expense.models import Expense,Payee,Category,Subcategory
 from django.views.generic.edit import CreateView
 from django.conf import settings
 from django.core.mail import send_mail
@@ -226,9 +226,35 @@ def analyse(request):
 def about(request):
     return render(request,'about.html',{})
 
-     #expense category list
+
+from django.shortcuts import render, redirect
+from .forms import CategoryForm,SubCategoryForm
+
+def addcategory(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the data to the database
+            return redirect('dashboard')  # Redirect to a success page
+    else:
+        form = CategoryForm()
+    return render(request, 'Addcategory.html', {'form': form})
+
 def category(request):
     return render(request,'category.html',{})
+
+
+
+def subcategory(request):
+    if request.method == 'POST':
+        form = SubCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the data to the database
+            return redirect('dashboard')  # Redirect to a success page
+    else:
+        form = SubCategoryForm()
+    return render(request, 'Addsubcategory.html', {'form': form})
+
 
      #transaction History From Database
 def template(request):
