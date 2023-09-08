@@ -27,7 +27,7 @@ def login_view(request):
     print(request.method)
     print(request.user.is_authenticated)
     # print("$"*80)
-    if not request.user.is_authenticated:
+    if request.user.is_authenticated:
         if request.method == "POST":
             user_name = request.POST.get('username')
             user_pass = request.POST.get('password')
